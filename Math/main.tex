@@ -21,9 +21,11 @@
 \renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
 
 \definecolor{capellaBlue}{RGB}{0,102,204}
-\definecolor{capellaRed}{RGB}{204,0,0} % new example color
+\definecolor{capellaRed}{RGB}{204,0,0}
+\definecolor{capellaGreen}{RGB}{0,204,0}
+\definecolor{capellaYellow}{RGB}{204,153,0}
 
-\mdfdefinestyle{theoremstyle}{
+\mdfdefinestyle{definitionstyle}{
     linecolor=capellaBlue,
     leftline=true,
     rightline=false,
@@ -37,7 +39,20 @@
     skipbelow=4pt
 }
 
-% identical frame style for examples but in red
+\mdfdefinestyle{exercisestyle}{
+    linecolor=capellaYellow,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaYellow!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
 \mdfdefinestyle{examplestyle}{
     linecolor=capellaRed,
     leftline=true,
@@ -45,6 +60,20 @@
     topline=false,
     bottomline=false,
     backgroundcolor=capellaRed!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
+\mdfdefinestyle{theoremstyle}{
+    linecolor=capellaGreen,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaGreen!6,
     linewidth=2pt,
     innertopmargin=6pt,
     innerbottommargin=6pt,
@@ -71,12 +100,41 @@
   { }
   {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaRed}{(#3)}}}}
 
+\newtheoremstyle{greenhead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaGreen}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaGreen}{(#3)}}}}
+
+% yellow heading for exercises
+\newtheoremstyle{yellowhead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaYellow}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaYellow}{(#3)}}}}
+
 \newcounter{theorem_counter}
 
 % definitions in blue
 \theoremstyle{bluehead}
 \newtheorem{definition}{定义}[subsection]
-\surroundwithmdframed[style=theoremstyle]{definition}
+\surroundwithmdframed[style=definitionstyle]{definition}
+
+% theorems in blue (same formatting as definitions)
+\theoremstyle{greenhead}
+\newtheorem{theorem}{定理}[subsection]
+\surroundwithmdframed[style=theoremstyle]{theorem}
+
+% exercises in yellow
+\theoremstyle{yellowhead}
+\newtheorem{exercise}{习题}[subsection]
+\surroundwithmdframed[style=exercisestyle]{exercise}
 
 % examples in red (same formatting except color)
 \theoremstyle{redhead}
@@ -122,41 +180,147 @@
 
 \section{数列极限}
 
-\subsection{数列极限例题补充}
 
-鉴于 CHM 在本节课中讲解的内容 WLZ 上学期几乎全部涉及, 我就挑选一道例题.
+\subsection{Stolz 定理}
+
+\begin{theorem}
+  (Stolz 定理).
+
+  \hspace{-2em}设 $\{x_n\}$ 和 $\{y_n\}$ 是两串实数序列, 如果 $\{y_n\}$ 满足以下条件中的任何一个:
+
+  \vspace{0.1cm}
+  
+  1) $\{y_n\}$ 严格单调增且 $y_n \to +\infty$;
+
+  \vspace{0.1cm}
+  
+  2) $\{y_n\}$ 严格单调减且 $x_n,\ y_n \to 0$.
+
+  \vspace{0.2cm}
+  
+  \hspace{-2em}那么 $\displaystyle \lim_{n \to \infty} \frac{x_{n+1}-x_n}{y_{n+1}-y_n}=L \Rightarrow \lim_{n \to \infty} \frac{x_n}{y_n}=L$ (其中 $L$ 为有限或$\pm \infty$).
+\end{theorem}
+
+\hspace{-2em}\textbf{证} \quad 先证明情况 1). 只对有限的 $L$ 作证明. 改写条件为
+$$
+\text{设} \varepsilon>0, \exists N \in \mathbb{N}, \forall n>N, \left|\frac{x_{n}-x_{n+1}}{y_{n}-y_{n+1}}-L\right|<\varepsilon.
+$$
+结合 $\{y_n\}$ 的单调性条件自然地去掉绝对值, 得到
+$$
+(L-\varepsilon)(y_{n}-y_{n+1})<x_{n}-x_{n+1}<(L+\varepsilon)(y_{n}-y_{n+1}).
+$$
+任取 $m>n$, 将上述不等式中的 $n$ 换成 $n+1, n+2, \cdots, m-1$ 然后将所有不等式相加 
+$$
+(L-\varepsilon)(y_{n}-y_{m})<x_{n}-x_{m}<(L+\varepsilon)(y_{n}-y_{m}).
+$$
+令 $m \to \infty$, $x_m, y_m \to 0$, 得到.
+$$
+\left|\frac{x_n}{y_n}-L\right|<\varepsilon.
+$$
+
+再证明情况 2). 只对有限的 $L$ 作证明. 设 $\varepsilon>0$, $\exists N \in \mathbb{N}$, $\forall n \ge N$, 则
+$$(L-\varepsilon)(y_{n+1}-y_n)<b_{n+1}-b_n<(L+\varepsilon)(y_{n+1}-y_n).$$
+仿照上面的过程,再次进行累加, 并重新整理为绝对值
+$$
+\left|\frac{x_{n}-x_{N}}{y_{n}-y_{N}}-L\right|<\varepsilon.
+$$
+为了得到关于 $\displaystyle \left|\frac{x_n}{y_n}-L\right|$ 的估计, 我们注意到恒等式
+$$
+\frac{x_n}{y_n}-L =  \left(1-\frac{y_N}{y_n}\right) \left(\frac{x_n-x_N}{y_n-y_N}-L\right) + \frac{x_N-Ly_N}{y_n}.
+$$
+再取一个无穷指标 $N_1$, 使得当 $n > N_1$ 时成立
+$$
+0<1-\frac{y_N}{y_n}<2, \quad \left|\frac{x_N-Ly_N}{y_n}\right|<\varepsilon.
+$$
+则在 $n > \max \{N,N_1\}$ 时就得到
+\begin{equation*}
+\left|\frac{x_n}{y_n}-L\right|<3\varepsilon.\tag*{\qed}
+\end{equation*}
+
+\begin{example}
+  计算数列极限 
+  $$
+  \lim_{n \to \infty} \left(\frac{2}{2^2-1}\right)^{\frac{1}{2^{n-1}}} \left(\frac{2^2}{2^3-1}\right)^{\frac{1}{2^{n-2}}} \cdots \left(\frac{2^{n-1}}{2^n-1}\right)^{\frac{1}{2}}.
+  $$
+\end{example}
+
+\hspace{-2em}\textbf{解} \quad 利用对数函数的连续性, 将极限转化为计算级数 
+$$
+\sum_{k=1}^{n-1} \frac{1}{2^{n-k}} \ln \left( \frac{2^k}{2^{k+1}-1} \right) = \frac{1}{2^{n-1}}\sum_{k=1}^{n-1} 2^{k-1} \ln \left(\frac{2^k}{2^{k+1}-1}\right).
+$$
+注意到
+$$
+\lim_{n \to \infty} \frac{2^{n-2}\ln\left(\frac{2^{n-1}}{2^n-1}\right)}{2^{n-1}-2^{n-2}}=\ln \left( \frac{1}{2} \right).
+$$
+由 Stolz 定理, 上述级数的极限为 $\displaystyle \ln \left( \frac{1}{2} \right)$, 从而原数列的极限为 $\displaystyle \frac{1}{2}$.\hfill\(\qed\)
 
 \vspace{0.2cm}
+
+\begin{exercise}
+已知数列 $\{x_n\}_{n \ge 1}$ 的初值为 $1$, 并满足如下的递推关系
+$$
+x_{n+1}=x_n+3\sqrt{x_n}+\frac{n}{\sqrt{x_n}}.
+$$
+证明数列 $\displaystyle \left\{\frac{x_n}{n^2}\right\}$ 有极限, 并求出这个极限.
+\end{exercise}
+
+\begin{theorem}
+  (Cesàro 定理).
+  设 $\{a_n\}_{n \ge 1}$ 为实数序列, 记 $\displaystyle \sigma_n=\frac{a_1+a_2+\cdots +a_n}{n}$. 那么 $$\displaystyle \lim_{n \to \infty} a_n=a \Rightarrow \displaystyle \lim_{n \to \infty} \sigma_n=a.$$
+\end{theorem}
+
+Cesàro 定理是 Stolz 定理的一个特例.
+
+\vspace{0.3cm}
+
+\begin{example}
+  已知 $\displaystyle \lim_{n \to \infty} x_n=a$, $\displaystyle \lim_{n \to \infty} y_n=b$, 求证
+  $$
+  \lim_{n \to \infty} \frac{x_1y_n+x_2y_{n-1}+\cdots+x_{n-1}y_2+x_ny_1}{n} = ab.
+  $$
+\end{example}
+
+\hspace{-2em}\textbf{证} \quad 注意到(这里 $a$ 的变形需要引入一个指标 $N$ 以保证)
+$$
+\left|\frac{\sum_{i=1}^nx_iy_{n+1-i}}{n}-ab\right|=\left|\frac{\sum_{i=1}^nx_iy_{n+1-i}}{n}-\left(\frac{\sum_{i=1}^nx_i}{n}\right)b\right|=\left|\frac{\sum_{i=1}^nx_i(y_{n+1-i}-b)}{n}\right|.
+$$
+后续证法与标准的 Cesàro 定理的证明完全相同, 这里不再赘述.\hfill\(\qed\)
+
+\vspace{0.2cm}
+
+\begin{exercise}
+
+(参数条件见定理1.2.2)
+
+1) Cesàro 定理的逆命题是否成立?
+
+2) 对 $k \ge 1$, 记 $b_k=a_{k+1}-a_{k}$. 证明, $\forall n \in \mathbb{N}_{\ge 2}$, 都有 $\displaystyle a_n-\sigma_n=\frac{1}{n}\sum_{k=1}^{n-1}kb_k$.
+
+3) 设 $\{kb_k\}_{k \ge 1}$ 有界并且 $\{\sigma_{n}\}_{n \ge 1}$ 收敛, 证明 $\{a_n\}$ 也收敛.
+\end{exercise}
+
+\begin{theorem}
+  (一般情况下的 Stolz 定理).
+
+  \hspace{-2em}设 $\{x_n\}$, $\{y_n\}$ 是两个实数列, 且 $\{y_n\}$ 单调无界, 那么
+  $$
+  \liminf_{n \to \infty} \frac{x_{n+1}-x_n}{y_{n+1}-y_n} \le \liminf_{n \to \infty} \frac{x_n}{y_n} \le \limsup_{n \to \infty} \frac{x_n}{y_n} \le \limsup_{n \to \infty} \frac{x_{n+1}-x_n}{y_{n+1}-y_n}.
+  $$
+\end{theorem}
+
+\subsection{其他例题}
 
 \begin{example}
   设 $|a|>1$, $\alpha \in \mathbb{R^+}$, 那么 $\displaystyle \lim_{n \to \infty}\frac{n^\alpha}{a^n}=0$.
 \end{example}
 
-将 $a^n$ 形式上记为 $(1+(a-1))^n$ 并利用二项式定理展开, 保留第 $[\alpha]+1$ 项即可.  
-
-\vspace{0.2cm}
-\hspace{-2em} \textbf{习题 A} 证明恒等式: $\displaystyle C_{n}^{k-1}+C_{n}^{k}=C_{n+1}^k$.
+\hspace{-2em} \textbf{证} \quad 将 $a^n$ 形式上记为 $(1+(a-1))^n$ 并利用二项式定理展开, 保留第 $[\alpha]+1$ 项即可. \hfill\(\qed\)
 
 \vspace{0.2cm}
 
-\hspace{-2em} \textbf{习题 B} (Cesàro 求和极限)
-
-\vspace{0.2cm}
-
-设 $\{a_n\}_{n \ge 1}$ 为实数序列, 记 $\displaystyle \sigma_n=\frac{a_1+a_2+\cdots +a_n}{n}$.
-
-\vspace{0.2cm}
-
-\hspace{-2em} 1) 证明 $\displaystyle \lim_{n \to \infty} a_n=a \Rightarrow \displaystyle \lim_{n \to \infty} \sigma_n=a$. 其逆命题是否成立?
-
-\hspace{-2em} 2) 对 $k \ge 1$, 记 $b_k=a_{k+1}-a_{k}$. 证明, $\forall n \in \mathbb{N}_{\ge 2}$, 都有 $\displaystyle a_n-\sigma_n=\frac{1}{n}\sum_{k=1}^{n-1}kb_k$.
-
-\hspace{-2em} 3) 设 $\{kb_k\}_{k \ge 1}$ 有界并且 $\{\sigma_{n}\}_{n \ge 1}$ 收敛, 证明 $\{a_n\}$ 也收敛.
-
-
-\subsection{秘}
-
-\LaTeX 秘.
+\begin{exercise}
+  证明恒等式: $\displaystyle C_{n}^{k-1}+C_{n}^{k}=C_{n+1}^k$.
+\end{exercise}
 
 \newpage
 
@@ -167,3 +331,14 @@
 \end{definition}
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+

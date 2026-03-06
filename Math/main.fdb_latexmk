@@ -1,10 +1,10 @@
 # Fdb version 4
-["xdvipdfmx"] 1772642177.22555 "main.xdv" "main.pdf" "main" 1772642177.85339 0
-  "main.xdv" 1772642176 14404 88fcccb12e47f4a68bae03945621a023 "xelatex"
+["xdvipdfmx"] 1772788420.64703 "main.xdv" "main.pdf" "main" 1772788421.64292 0
+  "main.xdv" 1772788419 34472 06d758f6fedd4096ca1be0c0f3419ee4 "xelatex"
   (generated)
   "main.pdf"
   (rewritten before read)
-["xelatex"] 1772642174.77646 "c:/Users/Capella/Desktop/TGmainfile/School/预科2/数学/main.tex" "main.xdv" "main" 1772642177.84018 0
+["xelatex"] 1772788417.2408 "c:/Users/Capella/Desktop/TGmainfile/School/预科2/Math/main.tex" "main.xdv" "main" 1772788421.62143 0
   "C:/Users/Capella/AppData/Local/MiKTeX/miktex/data/le/xetex/xelatex.fmt" 1756436441 26998238 33c8d989c27fb1961cfa390273c484c5 ""
   "D:/MiKTeX/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136743454 1528 7e12f4c0fcf5a072cebdcfbfc610f54c ""
   "D:/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -104,11 +104,11 @@
   "D:/MiKTeX/tex/xelatex/xecjk/xeCJK.cfg" 1659726270 408 7369c27beaa819c5f46de3795b22ee3e ""
   "D:/MiKTeX/tex/xelatex/xecjk/xeCJK.sty" 1659726270 183137 ed372550124703b2b73cbcc0b47cb20f ""
   "D:/MiKTeX/tex/xelatex/xecjk/xeCJKfntef.sty" 1659726270 39577 b470f8a1dbecc9c45c9bf05ca7db9188 ""
-  "c:/Users/Capella/Desktop/TGmainfile/School/预科2/数学/main.tex" 1772642173 4082 fc256d6cc42b99766f5c9d0c3867df65 ""
-  "main.aux" 1772642176 730 4eda6b04d93bd5406a1b83334298a9d5 "xelatex"
-  "main.out" 1772642176 387 8681f8e872c3d3425bd98e88dd9c36db "xelatex"
-  "main.tex" 1772642173 4082 fc256d6cc42b99766f5c9d0c3867df65 ""
-  "main.toc" 1772642176 339 cdf9efdaf5ed87d34408cd6517847b16 "xelatex"
+  "c:/Users/Capella/Desktop/TGmainfile/School/预科2/Math/main.tex" 1772788414 9668 e3c84bbeb7258102ddcd6f74bb511dcf ""
+  "main.aux" 1772788419 727 a21a3be13183ab0d5282420898b210e7 "xelatex"
+  "main.out" 1772788419 396 48db7801034b462f2085817916e98edd "xelatex"
+  "main.tex" 1772788414 9668 e3c84bbeb7258102ddcd6f74bb511dcf ""
+  "main.toc" 1772788419 336 e99e375d58e950e6f4648951ed785338 "xelatex"
   (generated)
   "main.aux"
   "main.log"
