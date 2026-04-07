@@ -1,2 +1,0 @@
-\contentsline {section}{\numberline {1}张量积}{2}{section.1}%
-\contentsline {subsection}{\numberline {1.1}线性映射的张量积}{2}{subsection.1.1}%
