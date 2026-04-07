@@ -1,0 +1,286 @@
+\section{张量积}
+
+\subsection{张量积的构造(I)}
+
+张量积的定义按照泛性质方式给出.
+
+\vspace{0.6em}
+\begin{definition} 
+    张量积
+
+    设 $V,W$ 都是向量空间. 称双线性映射 $f: V \times W \to U$ 是 $V$ 与 $W$ 的 \textbf{张量积}, 如果对于任意向量空间 $Z$ 和双线性映射 $g: V \times W \to Z$, 都存在唯一线性映射 $h: U \to Z$ 使得下图交换.
+    \begin{center}
+        \begin{tikzcd}
+            V \times W \arrow[r, "f"] \arrow[rd, "g"'] & U \arrow[d, dashed, "h"] \\
+            & Z
+        \end{tikzcd}
+    \end{center}
+\end{definition}
+
+下面验证良定义.
+
+\subsubsection*{存在性}
+
+设 $T=\text{span}\{(v,w):v \in V,w \in W\}$ (注意此处基底仅仅是形式记号, 在 $T$ 中任意 $(v_i,w_j)$ 均线性无关, 例如 $(v_1,w)+(v_2,w)\ne (v_1+v_2,w)$, 因此 $T$ 将会是一个巨大的空间).
+
+定义 $S=\text{span}\{(av_1+v_2,w)-a(v_1,w)-(v_2,w), (v,aw_1+w_2)-a(v,w_1)-(v,w_2):v,v_1,v_2 \in V,w,w_1,w_2 \in W\}$, 这是 $T$ 的一个子空间. 定义映射
+\begin{align*}
+    f: V \times W &\to T/S \\
+    (v,w) &\mapsto (v,w) + S.
+\end{align*}
+下面验证 $(T/S,f)$ 是 $V$ 与 $W$ 的张量积.
+
+由于 $f(av_1+v_2,w) = (av_1+v_2,w)+S = (a(v_1,w)+S) + ((v_2,w)+S) = af(v_1,w)+f(v_2,w)$, 并且 $w$ 分量同理, 因此 $f$ 是双线性映射. 
+
+给出任意双线性映射 $g: V \times W \to Z$, 定义映射
+\begin{align*}
+    \hat{h}: T &\to Z \\
+    \sum_{i} a_i(v_i,w_i) &\mapsto \sum_{i} a_i g(v_i,w_i).
+\end{align*}
+依 $T$ 的构造, 定义是合法的. 根据 $S$ 的定义, 注意到 $S \subset \ker{\hat{h}}$. 因而
+\begin{equation*}
+    x-x' \in S \implies \hat{h}(x-x') = 0 \implies \hat{h}(x) = \hat{h}(x').
+\end{equation*}
+这说明 $\hat{h}$ 的定义域能合法地下降到商空间 $T/S$, 从而得到线性映射 $h: T/S \to Z$. 那么 $h(f(v,w)) = h((v,w)+S) = g((v,w))$, 故 $h \circ f = g$.
+
+假设 $\exists h', h' \circ f = g$, 于是 $h'((u,v)+S)=h((u,v)+S)$, 这说明 $h'$ 与 $h$ 在 $T/S$ 的生成元上取值相同, 从而 $h' = h$. 这说明 $h$ 是唯一的.
+
+\subsubsection*{唯一性}
+
+如果
+\begin{align*}
+    f: V \times W &\to U \\
+    f': V \times W &\to U'
+\end{align*}
+都是 $V$ 与 $W$ 在 $F$ 上的张量积. 分别考虑 $f$ 和 $f'$ 的泛性质, 我们得到两张交换图
+\begin{center}
+    \begin{tikzcd}
+        V \times W \arrow[r, "f"] \arrow[rd, "f'"'] & U \arrow[d, dashed, "h"] \\
+        & U'
+    \end{tikzcd}
+    \qquad
+    \begin{tikzcd}
+        V \times W \arrow[r, "f'"] \arrow[rd, "f"'] & U' \arrow[d, dashed, "h'"] \\
+        & U
+    \end{tikzcd}
+\end{center}
+
+将两张图拼到一起
+\begin{center}
+    \begin{tikzcd}
+        V \times W \arrow[r, "f"] \arrow[rdd, "f"] & 
+        U \arrow[d, "h"]  \\
+        & U' \arrow[d, "h'"] \\
+        & U
+    \end{tikzcd}
+\end{center}
+
+对比下图
+\begin{center}
+    \begin{tikzcd}
+        V \times W \arrow[r, "f"] \arrow[rd, "f"] & 
+        U \arrow[d, dashed, "\text{Id}_U"]  \\
+        & U
+    \end{tikzcd}
+\end{center}
+
+将两张图合并, 得到
+\begin{center}
+    \begin{tikzcd}
+        V \times W \arrow[r, "f"] \arrow[rd, "f"] & 
+        U \arrow[d, dashed, "\text{Id}_U"'] \arrow[d, bend left, "j' \circ j"]  \\
+        & U
+    \end{tikzcd}
+\end{center}
+
+由于在张量积的定义中要求映射是唯一的, 因而 (另一侧同理)
+\begin{equation*}
+    h' \circ h = \text{Id}_U = h \circ h'.
+\end{equation*}
+即 $h$ 和 $h'$ 是 $U$ 与 $U'$ 的同构映射, 这验证了同构意义下张量积的唯一性.
+
+由于良定义性得证, 我们可以将 $V$ 与 $W$ 的张量积记作 $V \otimes W$, 以及 $f(v,w)$ 记作 $v \otimes w$. 张量积可以表示为
+\begin{align*}
+    V \times W &\to V \otimes W \\
+    (v,w) &\mapsto v \otimes w.
+\end{align*}
+
+\subsection{张量积的构造(II)}
+ 
+给出 $F$ 向量空间 $V,W,Z$, 任取 $v^* \in V^*,w^* \in W^*$, 定义映射
+\begin{align*}
+    [v^*, w^*]: V \times W &\to F \\
+    (v,w) &\mapsto v^*(v)w^*(w).
+\end{align*}
+容易验证这是一个双线性映射. 令
+\begin{equation*}
+    [V^*, W^*] = \{[v^*, w^*] \mid v^* \in V^*, w^* \in W^*\}
+\end{equation*}
+表示所有形如 $[v^*,w^*]$ 的双线性函数的集合, 该集合是 $\mathcal{L} (V,W;Z)$ 的一个 $F$ 子空间, 称为 $V \times W$ 上所有 \textbf{双线性型} \ 构成的向量空间. 
+
+下面的定理说明了 $[V^*,W^*]$ 与 $V \otimes W$ 的关系.
+
+\vspace{0.6em}
+
+\begin{theorem}
+    \
+
+    设 $\dim_F{V}, \dim_F{W}<\infty$. 定义映射
+    \begin{equation*}
+        f: V \times W \to [V^*, W^*]^*,
+    \end{equation*}
+    使得 $f(v,w)$ 是 $[V^*, W^*]$ 上的 \textbf{线性泛函} (接受双线性型输出一个数), 满足
+    \begin{equation*}
+        f(v,w)([v^*,w^*]) = v^*(v)w^*(w).
+    \end{equation*}
+    则 $f$ 是双线性映射, 并且 $([V^*,W^*]^*,f)$ 是 $V$ 与 $W$ 的张量积.
+\end{theorem}
+
+\hspace{-2em}\textbf{证} \hspace{0.5em} 首先验证 $f$ 是双线性映射. 对于任意 $v_1,v_2 \in V, w \in W, k \in F$, 有
+\begin{align*}
+    f(kv_1 + lv_2, w)([v^*,w^*]) &= v^*(kv_1 + lv_2)w^*(w) \\
+    &= k v^*(v_1)w^*(w) + l v^*(v_2)w^*(w) \\
+    &= k f(v_1,w)([v^*,w^*]) + l f(v_2,w)([v^*,w^*]).
+\end{align*}
+同理对第二个变量 $w$ 也成立, 因此 $f$ 是双线性映射.
+
+考虑使用张量积的泛性质证明. 给定向量空间 $U$ 和双线性映射 $g: V \times W \to U$. $\forall u^* \in U^*$, 需要寻找一个线性映射 $h:[V^*,W^*]^* \to U$.
+
+由于 $g$ 是双线性的, $u^*$ 是线性的, 因此复合映射 $u^* \circ g$ 是一个从 $V \times W \to F$ 的双线性映射, 故 $u^* \circ g \in [V^*,W^*]$.
+
+由此我们可以定义 $h$ 的对偶映射 
+\begin{align*}
+    h^*:U^* &\to [V^*,W^*]\\ 
+    u^* &\mapsto u^* \circ g.
+\end{align*} 
+在有限维情况下, 线性映射 $h^*$ 唯一确定了一个线性映射 $h:[V^*,W^*]^* \to U$.
+
+要证明 $h \circ f = g$, 只需验证 $\forall (v,w) \in V \times W$, 都有 $h(f(v,w)) = g(v,w)$. 在对偶空间中, 这等价于证明 
+\begin{equation*}
+    \forall u^* \in U^*, \langle h(f(v,w)), u^* \rangle = \langle f(v,w), h^*(u^*) \rangle = \langle g(v,w), u^* \rangle.
+\end{equation*}
+其中中间的一步是线性映射转置的定义.
+
+根据 $h^*$ 的定义, $h^*(u^*) = u^* \circ g$, 这正好等于右式.
+
+取 $V$ 的基 $\{e_i\}$ 和 $W$ 的基 $\{\varepsilon_j\}$, 并记对偶基 $\{e^i\}$ 和 $\{\varepsilon^j\}$. 显见 $B_{ij} = [e^i,\varepsilon^j]$ 是 $[V^*,W^*]$ 的一组基. 并且 $f(e_k,\varepsilon_l)[e^i,\varepsilon^j] = \delta_{ik}\delta_{lj}$. 这说明 $f(e_k,\varepsilon_l)$ 是 $[V^*,W^*]$ 中某组基的对偶基, 从而 $f(e_i,\varepsilon_j)$ 生成了 $[V^*,W^*]^*$. 由基底唯一性即得 $h$ 在整个空间唯一. \hfill\(\qed\)
+
+
+\subsection{张量积的性质}
+
+\begin{theorem}
+    张量积的性质
+
+    \vspace{-1em}
+    \begin{enumerate}
+        \item[(1)] $\mathcal{L} (V,W;Z) \cong \text{Hom}_F(V \otimes W,Z)$;
+        \item[(2)] $V \otimes W \cong W \otimes V$;
+        \item[(3)] $U \otimes (V \otimes W) \cong (U \otimes V) \otimes W$;
+        \item[(4)] $(U \oplus V) \otimes W \cong (U \otimes W) \oplus (V \otimes W)$;
+        \item[(5)] 如果 $\dim_FV,\dim_FW<\infty$, 则 $\dim_F(V \otimes W) = \dim_FV \cdot \dim_FW$.
+    \end{enumerate}
+\end{theorem}
+
+这些定理的证明留给读者, 等后面有空有概率补上.
+
+\subsection{线性映射的张量积}
+
+\begin{definition}
+    \
+
+    给出 $F$ 向量空间 $V,W,V',W'$. 取线性映射 $\varphi:V \to V', \psi:W \to W'$. 定义映射 $\varphi \odot  \psi: V \otimes W \to V' \otimes W'$:
+    \vspace{-1em}
+    \begin{equation*}
+        (\varphi \odot \psi)(v \otimes w) = \varphi(v) \otimes \psi(w).
+    \end{equation*}
+\end{definition}
+
+显然 $(\varphi \odot \psi)(v,w) = \varphi(v) \otimes \psi(w)$ 是双线性映射, 由张量的泛性质保证出 $\varphi \odot \psi$ 的线性性. 这诱导出另一个映射
+\begin{equation*}
+   \begin{matrix}
+        g:\text{Hom}_F(V,V') \times \text{Hom}_F(W,W') \to \text{Hom}_F(V \otimes W, V' \otimes W'),\\ 
+        \varphi,\psi \mapsto \varphi \odot \psi.
+    \end{matrix} 
+\end{equation*}
+$g$ 也是双线性映射 (手动验证).
+
+对 $\text{Hom}_F(V,V')$ 和 $\text{Hom}_F(W,W')$ 作张量积将诱导出如下的交换图
+
+\begin{center}
+    \begin{tikzcd}
+        \text{Hom}_F(V,V') \times \text{Hom}_F(W,W') \arrow[rd, "g"] \arrow[r] 
+        & \text{Hom}_F(V,V') \otimes \text{Hom}_F(W,W') \arrow[d, dashed, "h"] \\
+        & \text{Hom}_F(V \otimes W, V' \otimes W')
+    \end{tikzcd}
+\end{center}
+% \vspace{0.6em}
+\begin{theorem}
+  \
+
+  存在唯一线性映射
+  \begin{equation*}
+    \begin{matrix}
+        h:\text{Hom}_F(V,V') \otimes \text{Hom}_F(W,W') \to \text{Hom}_F(V \otimes W, V' \otimes W'),\\ 
+        \varphi \otimes \psi \mapsto \varphi \odot \psi.
+    \end{matrix} 
+\end{equation*}
+且 $h$ 是单射. 如果所有向量空间都是有限维, 则 $h$ 是同构.
+\end{theorem}
+
+\hspace{-2em}\textbf{证} \hspace{0.5em} 只需证明 $\ker{h} = \{0\}$. 
+
+采用反证法, 假设 $\eta \in \text{Hom}_F(V,V') \otimes \text{Hom}_F(W,W')$ 且 $\eta \neq 0$, 但 $h(\eta) = 0$. 取 $\text{Hom}_F(W,W')$ 中的一组线性无关基底 $\{\psi_1, \psi_2, \cdots, \psi_n\}$, 以及 $\{\varphi_i\} \subset \text{Hom}_F(V,V')$, 使得
+\begin{equation*}
+    \eta = \sum_{i=1}^n \varphi_i \otimes \psi_i.
+\end{equation*}
+
+对于任意 $v \in V, w \in W$, 由 $h(\eta) = 0$ 可得
+\begin{equation*}
+    0 = h(\eta)(v \otimes w) =h \left( \sum_{i=1}^n \varphi_i \otimes \psi_i \right)(v \otimes w)= \sum_{i=1}^n \varphi_i(v) \otimes \psi_i(w).
+\end{equation*}
+
+由于 $\eta \ne 0$, 存在一 $\varphi_i \ne 0$. 所以有 $\varphi_i(v) \ne 0$ 对于某个 $v \in V$, 我们假定 $\varphi_1(v')\ne 0$. 从 $\{\varphi_i\}_{1 \ge i \ge n}$ 中选出最大线性无关子集 $\{\varphi_i\}_{1 \ge i \ge m}$ (我们假定重排成恰好该情况). 那么
+\begin{align*}
+    0 &= \sum_{i=1}^n \varphi_i(v') \otimes \psi_i(w) \\
+    &= \sum_{i=1}^m \varphi_i(v') \otimes \psi_i(w) + \sum_{k=m+1}^n \left(\sum_{j=1}^m a_{k,j}\varphi_j(v') \right) \otimes \psi_k(w) \\
+    &= \sum_{i=1}^m \varphi_i(v') \otimes w_i'.
+\end{align*}
+其中 $w_i' = \psi_i(w) + \sum_{k=m+1}^n a_{k,i}\psi_k(w)$. 由于 $\{\varphi_i(v')\}_{1 \ge i \ge m}$ 线性无关, 故 $w_i' = 0$, 即
+\begin{equation*}
+    \psi_i(w) + \sum_{k=m+1}^n a_{k,i}\psi_k(w) = 0
+\end{equation*}
+这与集合 $\{\psi_i\}$ 线性无关性矛盾, 因此 $h$ 是单射. 由于空间都是有限维, 只需证明两侧维数相等即得出同构, 在此省略. \hfill\(\qed\)
+
+此后便不再区分 $\varphi \odot \psi$ 和 $\varphi \otimes \psi$, 例如 $\varphi \otimes \psi(v \otimes w) = \varphi(v) \otimes \psi(w)$.
+
+下面的例子说明了两个线性映射的张量积对应于相应矩阵的 Kronecker 积.
+
+\vspace{0.6em}
+
+\begin{example}
+  \
+
+  取 $n \times n$ 矩阵 $A_{ij}$ 和 $m \times m$ 矩阵 $B_{ij}$. 给出与之相对应的两个线性映射
+  \begin{equation*}
+    \varphi_A: F^n \to F^n, \varphi_B: F^m \to F^m, 
+  \end{equation*}
+  记作 $[\varphi_A]=A, [\varphi_B]=B$ (矩阵对应于 $F^n$ 的标准基 $\{e_i\}$). 
+
+  如果在 $F^n \otimes F^m$ 取基 (字典序)
+  \begin{equation*}
+    e_1 \otimes f_1, \cdots, e_1 \otimes f_m, \cdots, e_2 \otimes f_1, \cdots, e_2 \otimes f_m, \cdots, e_n \otimes f_1, \cdots, e_n \otimes f_m,
+  \end{equation*}
+  那么 $[\varphi_A \otimes \varphi_B] = A \otimes B$, 后者是矩阵的 Kronecker 积.
+\end{example}
+
+\hspace{-2em}\textbf{证} \hspace{0.5em} 将线性映射作用在地 $k$ 个基向量 $e_p \otimes f_q$ 上
+\begin{align*}
+    (\varphi_A \otimes \varphi_B)(e_p \otimes f_q) &= \varphi_A(e_p) \otimes \varphi_B(f_q) \\
+    &= \left( \sum_{i=1}^n A_{ip} e_i \right) \otimes \left( \sum_{j=1}^m B_{jq} f_j \right) \\
+    &= \sum_{i=1}^n\sum_{j=1}^m \left(A_{ip}B_{jq} e_i \otimes f_j \right).
+\end{align*}
+这给出了矩阵第 $(p-1)m+q$ 列的元素.
+
+也就是说, 矩阵的第 $(i-1)m+j$ 行, 第 $(p-1)m+q$ 列的元素恰好是 $A_{ip}B_{jq}$. 这与 Kronecker 积的定义一致. \hfill\(\qed\)
+
+\newpage

@@ -1,0 +1,203 @@
+\documentclass[12pt,a4paper,fontset=none]{ctexart}
+
+\usepackage{fontspec}
+\usepackage{xeCJK}
+\setmainfont{Times New Roman}
+\setCJKmainfont{SimSun}[BoldFont=SimHei]
+
+\usepackage{geometry}
+\geometry{a4paper, margin=2.5cm}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\usepackage{etoolbox}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{tikz-cd}
+\usepackage{eso-pic}
+
+\usepackage{tocloft}
+\renewcommand{\cftsecleader}{\hfill}
+\renewcommand{\cftsubsecleader}{\cftdotfill{\cftdotsep}}
+
+\definecolor{capellaBlue}{RGB}{0,102,204}
+\definecolor{capellaRed}{RGB}{204,0,0}
+\definecolor{capellaGreen}{RGB}{0,204,0}
+\definecolor{capellaYellow}{RGB}{204,153,0}
+
+\mdfdefinestyle{definitionstyle}{
+    linecolor=capellaBlue,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaBlue!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
+\mdfdefinestyle{exercisestyle}{
+    linecolor=capellaYellow,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaYellow!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
+\mdfdefinestyle{examplestyle}{
+    linecolor=capellaRed,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaRed!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
+\mdfdefinestyle{theoremstyle}{
+    linecolor=capellaGreen,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    backgroundcolor=capellaGreen!6,
+    linewidth=2pt,
+    innertopmargin=6pt,
+    innerbottommargin=6pt,
+    skipabove=4pt,
+    skipbelow=4pt
+}
+
+\newtheoremstyle{bluehead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaBlue}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaBlue}{(#3)}}}}
+
+% red heading for examples
+\newtheoremstyle{redhead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaRed}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaRed}{(#3)}}}}
+
+\newtheoremstyle{greenhead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaGreen}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaGreen}{(#3)}}}}
+
+% yellow heading for exercises
+\newtheoremstyle{yellowhead}
+  {0pt}{0pt}
+  {\normalfont}
+  {}
+  {\bfseries\color{capellaYellow}}
+  {}
+  { }
+  {\thmname{#1}\ \thmnumber{#2}\ \thmnote{\ {\textcolor{capellaYellow}{(#3)}}}}
+
+\newcounter{theorem_counter}
+
+% definitions in blue
+\theoremstyle{bluehead}
+\newtheorem{definition}{定义}[subsection]
+\surroundwithmdframed[style=definitionstyle]{definition}
+
+% theorems in blue (same formatting as definitions)
+\theoremstyle{greenhead}
+\newtheorem{theorem}{定理}[subsection]
+\surroundwithmdframed[style=theoremstyle]{theorem}
+
+% exercises in yellow
+\theoremstyle{yellowhead}
+\newtheorem{exercise}{习题}[subsection]
+\surroundwithmdframed[style=exercisestyle]{exercise}
+
+% examples in red (same formatting except color)
+\theoremstyle{redhead}
+\newtheorem{example}{例子}[subsection]
+\surroundwithmdframed[style=examplestyle]{example}
+
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{ Allepac Note}
+\fancyhead[R]{\leftmark}
+\fancyfoot[C]{\thepage}
+
+\newcommand\Watermark{
+    \AddToShipoutPictureBG{
+        \begin{tikzpicture}[remember picture, overlay]
+            \node[
+                rotate=0,
+                opacity=0.1
+            ] at (current page.center)
+            {
+                \includegraphics[width=1.1\paperwidth]{bgc.jpg}
+            };
+        \end{tikzpicture}
+    }
+}
+
+
+\begin{document}
+
+
+\begin{titlepage}
+
+\begin{tikzpicture}[remember picture,overlay]
+\node[opacity=0.1] at (current page.center) {
+    \includegraphics[width=1.1\paperwidth]{bgc.jpg}
+};
+\end{tikzpicture}
+
+\centering
+\vspace*{\fill}
+\begin{minipage}{\textwidth}
+  \centering
+  {\Huge\bfseries 线性代数笔记\par}
+  \vspace{1cm}
+  {\Large 堡堡菲\par}
+  \vspace{1cm}
+    {\large \today\par}
+\end{minipage}
+\vspace*{\fill}
+\end{titlepage}
+
+\Watermark
+
+\tableofcontents
+\thispagestyle{empty}
+
+\newpage
+
+\input{sections/TensorProduct}
+
+
+\end{document}
